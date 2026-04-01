@@ -1,0 +1,39 @@
+package com.itoshi_m_dev.schedulingapi.model;
+
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Table(name = "Establishment")
+@Data
+@RequiredArgsConstructor
+public class Establishment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    private String description;
+
+    private String address;
+
+    private String phone;
+
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
+    private List<Professional> professionalList;
+
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
+    private List<Service> serviceList;
+
+
+}
