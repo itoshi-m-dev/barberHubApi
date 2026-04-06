@@ -25,9 +25,16 @@ public class Service {
     private Integer durationMinutes;
 
     @ManyToOne
-    @JoinColumn(name = "establishment")
+    @JoinColumn(name = "establishment_id")
     private Establishment establishment;
 
+    @ManyToOne
+    @JoinColumn(name = "professional_id")
+    private Professional professional;
+
     private boolean isActive = true;
+
+    @OneToOne(mappedBy = "service")
+    private Appointment appointment;
 
 }

@@ -22,6 +22,8 @@ public class Appointment {
     @JoinColumn(name = "professional_id")
     private Professional professional;
 
+    @OneToOne
+    @JoinColumn(name = "service_id")
     private Service service;
 
     private LocalDateTime scheduledAt;
@@ -30,6 +32,7 @@ public class Appointment {
 
     private BigDecimal price;
 
+    @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
     private String notes;

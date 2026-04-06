@@ -22,13 +22,15 @@ public class Professional {
     @JoinColumn(name = "estabelecimento_id")
     private Establishment establishment;
 
+    @OneToMany(mappedBy = "professional")
     private List<Service> serviceList;
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     private List<Availability> availabilityList;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professional")
     private List<Appointment> appointmentList;
+
 
 
 }
