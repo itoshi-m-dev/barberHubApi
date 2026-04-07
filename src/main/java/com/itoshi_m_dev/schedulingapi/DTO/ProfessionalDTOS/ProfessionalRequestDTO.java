@@ -19,13 +19,7 @@ public record ProfessionalRequestDTO(
         String bio,
 
         @NotNull(message = "Profissional deve ter um estabelecimento")
-        Long establishmentId,
+        Long establishmentId
 
-        List<ServiceRequestDTO> service,
-
-        @NotNull(message = "Profissional deve ter uma lista de disponibilidade")
-        List<AvailabilityRequestDTO> availabilities,
-
-        List<AppointmentRequestDTO> appointments
 ) {
 }

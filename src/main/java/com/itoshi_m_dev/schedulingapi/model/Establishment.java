@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,10 +31,10 @@ public class Establishment {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
-    private List<Professional> professionalList;
+    private List<Professional> professionals = new ArrayList<>();
 
     @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
-    private List<Service> serviceList;
+    private List<Service> services = new ArrayList<>();
 
 
 }

@@ -20,8 +20,8 @@ public record EstablishmentResponseDTO(
 
         LocalDateTime createdAt,
 
-        List<ProfessionalResponseDTO> professionals,
+        List<ProfessionalResponseDTO> professionalsList,
 
-        List<ServiceResponseDTO> services
+        List<ServiceResponseDTO> servicesList
 ) {
 }

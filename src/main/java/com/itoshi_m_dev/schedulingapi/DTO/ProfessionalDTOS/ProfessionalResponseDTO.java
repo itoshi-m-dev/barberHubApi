@@ -20,6 +20,6 @@ public record ProfessionalResponseDTO(
 
         List<AvailabilityResponseDTO> availabilityResponseDTO,
 
-        List<AppointmentResponseDTO> appoitmentResponseDTO
+        List<AppointmentResponseDTO> appointmentResponseDTO
 ) {
 }

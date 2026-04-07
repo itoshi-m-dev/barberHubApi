@@ -27,11 +27,7 @@ public record EstablishmentRequestDTO(
 
         @NotNull
         @PastOrPresent(message = "Estabelecimento nao pode ser criado em uma data futura.")
-        LocalDateTime createdAt,
-
-        List<ProfessionalRequestDTO> professionals,
-
-        List<ServiceRequestDTO> services
+        LocalDateTime createdAt
 
 ) {
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Professional {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -23,13 +26,13 @@ public class Professional {
     private Establishment establishment;
 
     @OneToMany(mappedBy = "professional")
-    private List<Service> serviceList;
+    private List<Service> serviceList = new ArrayList<>();
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
-    private List<Availability> availabilityList;
+    private List<Availability> availabilityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "professional")
-    private List<Appointment> appointmentList;
+    private List<Appointment> appointmentList = new ArrayList<>();
 
 
 
