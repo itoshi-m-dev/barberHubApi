@@ -6,10 +6,15 @@ import com.itoshi_m_dev.schedulingapi.exception.ResourceNotFoundException;
 import com.itoshi_m_dev.schedulingapi.mapper.EstablishmentMapper;
 import com.itoshi_m_dev.schedulingapi.model.Establishment;
 import com.itoshi_m_dev.schedulingapi.repositories.EstablishmentRepository;
+import com.itoshi_m_dev.schedulingapi.specification.EstablishmentSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.itoshi_m_dev.schedulingapi.validators.Validator.notNull;
 
@@ -30,13 +35,20 @@ public class EstablishmentService {
         return mapper.toDTO(establishment);
     }
 
-    public Page<EstablishmentResponseDTO> findAll(Pageable pageable){
-        notNull(pageable);
+    public Page<EstablishmentResponseDTO> findAll(String name, LocalDateTime createdAt, Pageable pageable) {
 
-        Page<EstablishmentResponseDTO> page = repository.findAll(pageable)
-                .map(mapper::toDTO);
+        Specification<Establishment> spec = Specification.where(null);
 
-        return page;
+        if (name != null && !name.isBlank()) {
+            spec = spec.and(EstablishmentSpecification.nameContains(name));
+        }
+
+        if (createdAt != null) {
+            spec = spec.and(EstablishmentSpecification.createdBefore(createdAt));
+        }
+
+        return repository.findAll(spec, pageable).map(mapper::toDTO);
+
     }
 
     public EstablishmentResponseDTO findById(Long id){
@@ -75,12 +87,6 @@ public class EstablishmentService {
 
         repository.deleteById(id);
     }
-
-
-
-
-
-
 
 
     private Establishment update(Establishment establishment, EstablishmentRequestDTO dto) {

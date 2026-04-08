@@ -6,7 +6,7 @@ import com.itoshi_m_dev.schedulingapi.model.Availability;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = ProfessionalMapper.class)
+@Mapper(componentModel = "spring")
 public interface AvailabilityMapper {
 
     @Mapping(target = "id", ignore = true)

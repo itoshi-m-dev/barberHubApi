@@ -6,7 +6,7 @@ import com.itoshi_m_dev.schedulingapi.model.Appointment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {ProfessionalMapper.class, ServiceMapper.class})
+@Mapper(componentModel = "spring")
 public interface AppointmentMapper {
 
     @Mapping(target = "id", ignore = true)

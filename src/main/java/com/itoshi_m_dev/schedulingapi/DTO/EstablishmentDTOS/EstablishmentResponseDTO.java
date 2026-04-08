@@ -18,10 +18,6 @@ public record EstablishmentResponseDTO(
 
         String phone,
 
-        LocalDateTime createdAt,
-
-        List<ProfessionalResponseDTO> professionalsList,
-
-        List<ServiceResponseDTO> servicesList
+        LocalDateTime createdAt
 ) {
 }

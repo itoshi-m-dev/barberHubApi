@@ -9,11 +9,7 @@ import com.itoshi_m_dev.schedulingapi.model.Professional;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {
-        ServiceMapper.class,
-        AvailabilityMapper.class,
-        AppointmentMapper.class,
-        EstablishmentMapper.class})
+@Mapper(componentModel = "spring")
 public interface ProfessionalMapper {
 
     @Mapping(target = "id", ignore = true)

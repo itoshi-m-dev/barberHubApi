@@ -7,7 +7,7 @@ import com.itoshi_m_dev.schedulingapi.model.Establishment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {ProfessionalMapper.class, ServiceMapper.class})
+@Mapper(componentModel = "spring")
 public interface EstablishmentMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -15,7 +15,5 @@ public interface EstablishmentMapper {
     @Mapping(target = "services", ignore = true)
     Establishment toEntity(EstablishmentRequestDTO dto);
 
-    @Mapping(source = "professionals", target = "professionalsList")
-    @Mapping(source = "services", target = "servicesList")
     EstablishmentResponseDTO toDTO(Establishment entity);
 }
