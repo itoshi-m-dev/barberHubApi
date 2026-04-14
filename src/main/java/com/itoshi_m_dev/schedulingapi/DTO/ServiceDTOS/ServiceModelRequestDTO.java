@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 
-public record ServiceRequestDTO(
+public record ServiceModelRequestDTO(
 
     @NotBlank(message = "Nome do serviço é obrigatório")
     @Size(max = 100, message = "Nome deve ter no máximo 100 caracteres")
