@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import java.time.LocalDateTime;
 
@@ -55,4 +57,34 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
     }
+
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiError> methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException ex,
+                                                                               HttpServletRequest request){
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Argumentos na URL invalidos",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
+    @ExceptionHandler(ServiceAlreadyExistsException.class)
+    public ResponseEntity<ApiError> serviceAlreadyExistsExceptionHandler(ServiceAlreadyExistsException ex,
+                                                                         HttpServletRequest request){
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+
+    }
+
+
 }

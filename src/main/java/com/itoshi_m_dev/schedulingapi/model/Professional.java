@@ -26,7 +26,7 @@ public class Professional {
     private Establishment establishment;
 
     @OneToMany(mappedBy = "professional")
-    private List<Service> serviceList = new ArrayList<>();
+    private List<ServiceModel> serviceList = new ArrayList<>();
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     private List<Availability> availabilityList = new ArrayList<>();

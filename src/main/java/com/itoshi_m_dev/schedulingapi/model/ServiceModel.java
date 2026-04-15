@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Service")
+@Table(name = "ServiceModel")
 @Data
 @RequiredArgsConstructor
-public class Service {
+public class ServiceModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

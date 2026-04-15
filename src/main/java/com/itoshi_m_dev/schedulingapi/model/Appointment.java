@@ -24,7 +24,7 @@ public class Appointment {
 
     @OneToOne
     @JoinColumn(name = "service_id")
-    private Service service;
+    private ServiceModel service;
 
     private LocalDateTime scheduledAt;
 

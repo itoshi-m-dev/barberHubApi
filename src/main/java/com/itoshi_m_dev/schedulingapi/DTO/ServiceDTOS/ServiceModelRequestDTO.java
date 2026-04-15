@@ -26,13 +26,12 @@ public record ServiceModelRequestDTO(
     @NotNull(message = "Estabelecimento é obrigatório")
     Long establishmentId,
 
-    @NotNull(message = "Profissional é obrigatório")
     Long professionalId,
 
     Boolean isActive,
 
-    @NotNull(message = "Appointment é obrigatorio")
     Long appointmentId
+
 
 
 ) {

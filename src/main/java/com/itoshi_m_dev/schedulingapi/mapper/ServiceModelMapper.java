@@ -1,22 +1,22 @@
 package com.itoshi_m_dev.schedulingapi.mapper;
 
-import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceRequestDTO;
-import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceResponseDTO;
+import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceModelRequestDTO;
+import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceModelResponseDTO;
 import com.itoshi_m_dev.schedulingapi.model.ServiceModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface ServiceMapper {
+public interface ServiceModelMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "establishment", ignore = true)
     @Mapping(target = "professional", ignore = true)
-    @Mapping(target= "appointment", ignore = true)
-    ServiceModel toEntity(ServiceRequestDTO dto);
+    @Mapping(target = "active", source = "isActive")
+    @Mapping(target = "appointment", ignore = true)
+    ServiceModel toEntity(ServiceModelRequestDTO dto);
 
-    @Mapping(source = "establishment", target = "establishmentResponseDTO")
-    @Mapping(source = "professional", target = "professionalResponseDTO")
-    @Mapping(source = "appointment", target = "appointmentResponseDTO")
-    ServiceResponseDTO toDTO(ServiceModel entity);
+    @Mapping(source = "establishment.id", target = "establishmentId")
+    @Mapping(source = "professional.id", target = "professionalId")
+    ServiceModelResponseDTO toDTO(ServiceModel entity);
 }

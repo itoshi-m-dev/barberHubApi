@@ -5,7 +5,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 
-public class ServiceModelEspecification {
+public class ServiceModelSpecification {
 
     public static Specification<ServiceModel> nameContains(String name){
         return (root, query, criteriaBuilder) -> {
@@ -13,7 +13,7 @@ public class ServiceModelEspecification {
                 return null;
             }
 
-            return criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), name.toLowerCase());
+            return criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%");
         };
 
     }
@@ -26,6 +26,14 @@ public class ServiceModelEspecification {
 
             return criteriaBuilder.between(root.get("price"), min, max);
         };
-        
+    }
+
+    public static Specification<ServiceModel> durationMinutesLessThan(Integer minutes){
+        return (root, query, criteriaBuilder) -> {
+            if(minutes == null || minutes <= 0 ){
+                return null;
+            }
+            return criteriaBuilder.lessThan(root.get("durationMinutes"), minutes);
+        };
     }
 }

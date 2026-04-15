@@ -1,7 +1,7 @@
 package com.itoshi_m_dev.schedulingapi.DTO.AppointmentDTOS;
 
 import com.itoshi_m_dev.schedulingapi.DTO.ProfessionalDTOS.ProfessionalResponseDTO;
-import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceResponseDTO;
+import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceModelResponseDTO;
 import com.itoshi_m_dev.schedulingapi.enums.AppointmentStatus;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ public record AppointmentResponseDTO(
 
         ProfessionalResponseDTO professionalResponseDTO,
 
-        ServiceResponseDTO serviceResponseDTO,
+        ServiceModelResponseDTO serviceResponseDTO,
 
         LocalDateTime scheduledAt,
 

@@ -6,23 +6,13 @@ import com.itoshi_m_dev.schedulingapi.DTO.ProfessionalDTOS.ProfessionalResponseD
 
 import java.math.BigDecimal;
 
-public record ServiceResponseDTO(
+public record ServiceModelResponseDTO(
         Long id,
-
         String name,
-
         String description,
-
         BigDecimal price,
-
         Integer durationMinutes,
-
-        EstablishmentResponseDTO establishmentResponseDTO,
-
-        ProfessionalResponseDTO professionalResponseDTO,
-
-        Boolean isActive,
-
-        AppointmentResponseDTO appointmentResponseDTO
+        Long establishmentId,
+        Long professionalId
 ) {
 }

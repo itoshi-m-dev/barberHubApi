@@ -1,21 +1,19 @@
 package com.itoshi_m_dev.schedulingapi.repositories;
 
-import com.itoshi_m_dev.schedulingapi.model.Service;
+import com.itoshi_m_dev.schedulingapi.model.ServiceModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ServiceRepository extends JpaRepository<Service, Long> {
+public interface ServiceRepository extends JpaRepository<ServiceModel, Long>, JpaSpecificationExecutor<ServiceModel> {
 
-    Service findByName(String name);
+    List<ServiceModel> findByEstablishmentId(Long establishmentId);
 
-    List<Service> findByPriceBetween(BigDecimal min, BigDecimal max);
+    List<ServiceModel> findByProfessionalId(Long professionalId);
 
-    List<Service> findByDurationMinutesLessThan(Integer minutes);
+    boolean existsByNameAndEstablishmentId(String name, Long establishmentId);
 
-    List<Service> findByEstablishmentId(Long establishmentId);
-
-    List<Service> findByProfessionalId(Long professionalId);
 
 }

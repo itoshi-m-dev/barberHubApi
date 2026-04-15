@@ -1,7 +1,7 @@
 package com.itoshi_m_dev.schedulingapi.DTO.EstablishmentDTOS;
 
 import com.itoshi_m_dev.schedulingapi.DTO.ProfessionalDTOS.ProfessionalResponseDTO;
-import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceResponseDTO;
+import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceModelResponseDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

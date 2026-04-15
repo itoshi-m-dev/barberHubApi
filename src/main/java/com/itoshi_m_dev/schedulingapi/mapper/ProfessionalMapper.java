@@ -17,9 +17,9 @@ public interface ProfessionalMapper {
     Professional toEntity(ProfessionalRequestDTO dto);
 
 
-    @Mapping(source = "establishment", target = "establishmentResponseDTO")
-    @Mapping(source = "serviceList", target = "serviceResponseDTO")
-    @Mapping(source = "availabilityList", target = "availabilityResponseDTO")
-    @Mapping(source = "appointmentList", target = "appointmentResponseDTO")
+    @Mapping(source = "establishment.id", target = "establishmentId")
+    @Mapping(source = "serviceList", target = "services")
+    @Mapping(source = "availabilityList", target = "availabilities")
+    @Mapping(source = "appointmentList", target = "appointments")
     ProfessionalResponseDTO toDTO(Professional entity);
 }

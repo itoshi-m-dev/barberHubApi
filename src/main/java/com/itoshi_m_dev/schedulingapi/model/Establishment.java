@@ -4,7 +4,6 @@ package com.itoshi_m_dev.schedulingapi.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class Establishment {
     private List<Professional> professionals = new ArrayList<>();
 
     @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
-    private List<Service> services = new ArrayList<>();
+    private List<ServiceModel> services = new ArrayList<>();
 
 
 }

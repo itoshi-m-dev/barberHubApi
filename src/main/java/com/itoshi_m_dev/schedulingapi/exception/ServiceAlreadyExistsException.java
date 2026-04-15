@@ -1,7 +1,7 @@
 package com.itoshi_m_dev.schedulingapi.exception;
 
-public class serviceAlrearyExistsException extends RuntimeException {
-  public serviceAlrearyExistsException(String message) {
-    super(message);
-  }
+public class ServiceAlreadyExistsException extends RuntimeException {
+    public ServiceAlreadyExistsException(String message) {
+        super(message);
+    }
 }
