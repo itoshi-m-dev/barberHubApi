@@ -1,15 +1,17 @@
 package com.itoshi_m_dev.schedulingapi.DTO.AvailabilityDTOS;
 
-import com.itoshi_m_dev.schedulingapi.DTO.ProfessionalDTOS.ProfessionalResponseDTO;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record AvailabilityResponseDTO(
 
         Long id,
 
-        ProfessionalResponseDTO professionalResponseDTO,
+        Long professionalId,
 
         DayOfWeek dayOfWeek,
 

@@ -22,7 +22,7 @@ public class Professional {
     private String bio;
 
     @ManyToOne
-    @JoinColumn(name = "estabelecimento_id")
+    @JoinColumn(name = "establishment_id")
     private Establishment establishment;
 
     @OneToMany(mappedBy = "professional")

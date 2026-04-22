@@ -14,8 +14,8 @@ public interface AppointmentMapper {
     @Mapping(target = "service", ignore = true)
     Appointment toEntity(AppointmentRequestDTO dto);
 
-    @Mapping(source = "professional", target = "professionalResponseDTO")
-    @Mapping(source = "service", target = "serviceResponseDTO")
+    @Mapping(source = "professional.id", target = "professionalId")
+    @Mapping(source = "service.id", target = "serviceId")
     AppointmentResponseDTO toDTO(Appointment entity);
 
 

@@ -50,6 +50,7 @@ public class ServiceModelService {
 
         ServiceModel entity = mapper.toEntity(dto);
         entity.setEstablishment(establishment);
+        establishment.getServices().add(entity);
 
         repository.save(entity);
 
@@ -166,6 +167,7 @@ public class ServiceModelService {
         }
 
         entity.setProfessional(professional);
+        professional.getServiceList().add(entity);
 
         repository.save(entity);
 

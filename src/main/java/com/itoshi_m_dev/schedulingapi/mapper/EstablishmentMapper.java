@@ -15,5 +15,6 @@ public interface EstablishmentMapper {
     @Mapping(target = "services", ignore = true)
     Establishment toEntity(EstablishmentRequestDTO dto);
 
+    @Mapping(target = "professionals", source = "professionals")
     EstablishmentResponseDTO toDTO(Establishment entity);
 }

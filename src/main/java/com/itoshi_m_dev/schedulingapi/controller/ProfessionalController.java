@@ -22,7 +22,7 @@ public class ProfessionalController {
 
     @PostMapping("/establishments/{establishmentId}/professionals")
     public ResponseEntity<ProfessionalResponseDTO> addProfessionalInEstablishment(@PathVariable Long establishmentId,
-                                                                                  @RequestBody ProfessionalRequestDTO dto){
+                                                                                  @RequestBody ProfessionalRequestDTO dto) {
         ProfessionalResponseDTO show = service.addProfessionalToEstablishment(establishmentId, dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -35,7 +35,7 @@ public class ProfessionalController {
 
     @GetMapping("/establishments/{establishmentId}/professionals")
     public ResponseEntity<Page<ProfessionalResponseDTO>> findAllProfessionalByEstablishment(@PathVariable Long establishmentId,
-                                                                                            Pageable pageable){
+                                                                                            Pageable pageable) {
 
         Page<ProfessionalResponseDTO> show = service.findAllProfessionalByEstablishmentId(establishmentId, pageable);
 
@@ -44,7 +44,7 @@ public class ProfessionalController {
 
     @GetMapping("/establishments/{establishmentId}/professionals/{professionalId}")
     public ResponseEntity<ProfessionalResponseDTO> professionalDetailByEstablishment(@PathVariable Long establishmentId,
-                                                                                     @PathVariable Long professionalId){
+                                                                                     @PathVariable Long professionalId) {
 
         ProfessionalResponseDTO show = service.professionalDetails(establishmentId, professionalId);
 
@@ -54,7 +54,7 @@ public class ProfessionalController {
     @PatchMapping("/establishments/{establishmentId}/professionals/{professionalId}")
     public ResponseEntity<ProfessionalResponseDTO> updateProfessional(@PathVariable Long establishmentId,
                                                                       @PathVariable Long professionalId,
-                                                                      @RequestBody ProfessionalRequestDTO dto){
+                                                                      @RequestBody ProfessionalRequestDTO dto) {
 
         ProfessionalResponseDTO show = service.updateProfessional(establishmentId, professionalId, dto);
 
@@ -63,7 +63,7 @@ public class ProfessionalController {
 
     @DeleteMapping("/establishments/{establishmentId}/professionals/{professionalId}")
     public ResponseEntity<Void> deleteProfessional(@PathVariable Long establishmentId,
-                                                   @PathVariable Long professionalId){
+                                                   @PathVariable Long professionalId) {
 
         service.deleteProfessional(establishmentId, professionalId);
 
@@ -73,15 +73,13 @@ public class ProfessionalController {
 
     @PostMapping("/services/{serviceId}/professionals/{professionalId}")
     public ResponseEntity<Void> addServiceToProfessional(@PathVariable Long serviceId,
-                                                         @PathVariable Long professionalId){
+                                                         @PathVariable Long professionalId) {
 
         service.addServiceToProfessional(professionalId, serviceId);
 
         return ResponseEntity.noContent().build();
 
     }
-
-
 
 
 }

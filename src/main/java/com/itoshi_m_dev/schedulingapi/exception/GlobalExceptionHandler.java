@@ -83,8 +83,35 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
+    @ExceptionHandler(ClosedBarberException.class)
+    public ResponseEntity<ApiError> closedBarberExceptionHandler(ClosedBarberException ex, HttpServletRequest request){
+
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Dia da semana invalido",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
 
     }
 
+    @ExceptionHandler(CancelledApointmentException.class)
+    public ResponseEntity<ApiError> closedBarberExceptionHandler(CancelledApointmentException ex, HttpServletRequest request) {
 
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Agendamento ja cancelado",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+
+    }
 }

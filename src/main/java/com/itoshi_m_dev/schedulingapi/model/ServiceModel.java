@@ -1,5 +1,6 @@
 package com.itoshi_m_dev.schedulingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

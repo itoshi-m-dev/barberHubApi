@@ -2,7 +2,6 @@ package com.itoshi_m_dev.schedulingapi.controller;
 
 import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceModelRequestDTO;
 import com.itoshi_m_dev.schedulingapi.DTO.ServiceDTOS.ServiceModelResponseDTO;
-import com.itoshi_m_dev.schedulingapi.model.ServiceModel;
 import com.itoshi_m_dev.schedulingapi.services.ServiceModelService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class ServiceModelController {
     @PostMapping("/{id}")
     public ResponseEntity<ServiceModelResponseDTO> createServiceInEstablishmentById(
             @PathVariable Long id,
-            @RequestBody @Valid ServiceModelRequestDTO dto){
+            @RequestBody @Valid ServiceModelRequestDTO dto) {
 
         ServiceModelResponseDTO show = service.createServiceInEstablishmentById(id, dto);
         URI uri = ServletUriComponentsBuilder
@@ -41,7 +40,7 @@ public class ServiceModelController {
 
     @GetMapping("/establishment/{establishmentId}/services")
     public ResponseEntity<List<ServiceModelResponseDTO>> listAllServicesInEstablishment(
-            @PathVariable Long establishmentId){
+            @PathVariable Long establishmentId) {
 
         List<ServiceModelResponseDTO> show = service.listAllServicesInEstablishment(establishmentId);
 
@@ -49,7 +48,7 @@ public class ServiceModelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceModelResponseDTO> findById(@PathVariable Long id){
+    public ResponseEntity<ServiceModelResponseDTO> findById(@PathVariable Long id) {
         ServiceModelResponseDTO show = service.findById(id);
 
         return ResponseEntity.ok().body(show);
@@ -57,7 +56,7 @@ public class ServiceModelController {
 
     @PatchMapping("/establishments/{establishmentId}/services/{serviceId}")
     public ResponseEntity<ServiceModelResponseDTO> updateServiceByEstablishment(
-            @PathVariable Long establishmentId, @PathVariable Long serviceId, @RequestBody ServiceModelRequestDTO dto){
+            @PathVariable Long establishmentId, @PathVariable Long serviceId, @RequestBody ServiceModelRequestDTO dto) {
 
         ServiceModelResponseDTO show = service.updateServiceInEstablishment(establishmentId, serviceId, dto);
         return ResponseEntity.ok(show);
@@ -66,7 +65,7 @@ public class ServiceModelController {
 
     @DeleteMapping("/establishments/{establishmentId}/services/{serviceId}")
     public ResponseEntity<Void> deleteServiceByEstablishmentId(@PathVariable Long establishmentId,
-                                                               @PathVariable Long serviceId){
+                                                               @PathVariable Long serviceId) {
 
         service.deleteServiceByEstablishmentId(establishmentId, serviceId);
         return ResponseEntity.noContent().build();
@@ -76,10 +75,10 @@ public class ServiceModelController {
     @GetMapping
     public ResponseEntity<Page<ServiceModelResponseDTO>> findAll(
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "min", required = false)BigDecimal min,
-            @RequestParam(value = "max", required = false)BigDecimal max,
-            @RequestParam(value = "minutes", required = false)Integer minutes,
-            Pageable pageable){
+            @RequestParam(value = "min", required = false) BigDecimal min,
+            @RequestParam(value = "max", required = false) BigDecimal max,
+            @RequestParam(value = "minutes", required = false) Integer minutes,
+            Pageable pageable) {
 
         Page<ServiceModelResponseDTO> show = service.findAll(name, min, max, minutes, pageable);
 
@@ -89,10 +88,10 @@ public class ServiceModelController {
     }
 
     //Testar apos a configuraçao do professionalService.
-        @PostMapping("/establishments/{establishmentId}/services/{serviceId}/add-professional/{professionalId}")
+    @PostMapping("/establishments/{establishmentId}/services/{serviceId}/add-professional/{professionalId}")
     public ResponseEntity<ServiceModelResponseDTO> addProfessionalToService(@PathVariable Long establishmentId,
                                                                             @PathVariable Long serviceId,
-                                                                            @PathVariable Long professionalId){
+                                                                            @PathVariable Long professionalId) {
 
         ServiceModelResponseDTO show = service.addProfessionalToService(establishmentId, serviceId, professionalId);
         URI uri = ServletUriComponentsBuilder
@@ -103,8 +102,6 @@ public class ServiceModelController {
 
         return ResponseEntity.created(uri).body(show);
     }
-
-
 
 
 }

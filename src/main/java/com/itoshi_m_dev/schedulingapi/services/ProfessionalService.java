@@ -54,6 +54,7 @@ public class ProfessionalService {
         return mapper.toDTO(entity);
     }
 
+    @Transactional
     public Page<ProfessionalResponseDTO> findAllProfessionalByEstablishmentId(Long establishmentId,
                                                                               Pageable pageable) {
         if (!establishmentRepository.existsById(establishmentId)) {

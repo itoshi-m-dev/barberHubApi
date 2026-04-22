@@ -11,9 +11,6 @@ public interface ServiceModelMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "establishment", ignore = true)
-    @Mapping(target = "professional", ignore = true)
-    @Mapping(target = "active", source = "isActive")
-    @Mapping(target = "appointment", ignore = true)
     ServiceModel toEntity(ServiceModelRequestDTO dto);
 
     @Mapping(source = "establishment.id", target = "establishmentId")

@@ -24,13 +24,7 @@ public record ServiceModelRequestDTO(
     Integer durationMinutes,
 
     @NotNull(message = "Estabelecimento é obrigatório")
-    Long establishmentId,
-
-    Long professionalId,
-
-    Boolean isActive,
-
-    Long appointmentId
+    Long establishmentId
 
 
 

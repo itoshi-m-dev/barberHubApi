@@ -13,6 +13,6 @@ public interface AvailabilityMapper {
     @Mapping(target = "professional", ignore = true)
     Availability toEntity(AvailabilityRequestDTO dto);
 
-    @Mapping(source = "professional", target = "professionalResponseDTO")
+    @Mapping(source = "professional.id", target = "professionalId")
     AvailabilityResponseDTO toDTO(Availability entity);
 }

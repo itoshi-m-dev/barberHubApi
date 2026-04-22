@@ -11,8 +11,6 @@ public interface AvailabilityRepository extends JpaRepository<Availability, Long
 
     List<Availability> findByProfessionalId(Long professionalId);
 
-    List<Availability> findByDayOfWeek(DayOfWeek dayOfWeek);
-
     List<Availability> findByProfessionalIdAndDayOfWeek(Long professionalId, DayOfWeek dayOfWeek);
 
 }

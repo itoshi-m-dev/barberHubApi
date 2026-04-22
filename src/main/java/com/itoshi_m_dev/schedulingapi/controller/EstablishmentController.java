@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -36,7 +37,8 @@ public class EstablishmentController {
     @GetMapping
     public ResponseEntity<Page<EstablishmentResponseDTO>> findAll(
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "createdAt", required = false) LocalDateTime createdAt,
+            @RequestParam(value = "createdAt", required = false)
+            @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime createdAt,
             Pageable pageable){
 
         Page<EstablishmentResponseDTO> show = service.findAll(name,createdAt,pageable);
