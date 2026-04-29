@@ -22,6 +22,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.itoshi_m_dev.schedulingapi.validators.Validator.notNull;
+
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
@@ -46,11 +48,12 @@ public class AppointmentService {
         }
 
         Appointment entity = mapper.toEntity(dto);
+        entity.setPrice(service.getPrice());
+        entity.setDurationMinutes(service.getDurationMinutes());
         entity.setProfessional(professional);
         entity.setService(service);
 
         professional.getAppointmentList().add(entity);
-        service.setAppointment(entity);
 
         repository.save(entity);
 
@@ -74,6 +77,10 @@ public class AppointmentService {
             throw new CancelledApointmentException("Este agendamento ja esta cancelado");
         }
 
+        if (appointment.getStatus() == AppointmentStatus.COMPLETED) {
+            throw new CancelledApointmentException("Um agendamento nao pode ser cancelado quando ele já foi completado.");
+        }
+
         appointment.setStatus(AppointmentStatus.CANCELLED);
 
         repository.save(appointment);
@@ -85,6 +92,14 @@ public class AppointmentService {
 
         if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
             throw new CancelledApointmentException("Nao e possivel confirmar um agendamento ja cancelado.");
+        }
+
+        if (appointment.getStatus() == AppointmentStatus.CONFIRMED) {
+            throw new CancelledApointmentException("Nao e possivel confirmar um agendamento ja confirmado.");
+        }
+
+        if (appointment.getStatus() == AppointmentStatus.COMPLETED) {
+            throw new CancelledApointmentException("Nao e possivel confirmar um agendamento completado");
         }
 
         appointment.setStatus(AppointmentStatus.CONFIRMED);
@@ -100,6 +115,9 @@ public class AppointmentService {
         if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
             throw new CancelledApointmentException("Nao e possivel completar um agendamento ja cancelado.");
         }
+        if (appointment.getStatus() == AppointmentStatus.COMPLETED) {
+            throw new CancelledApointmentException("Agendamento ja completado.");
+        }
 
         appointment.setStatus(AppointmentStatus.COMPLETED);
 
@@ -108,6 +126,7 @@ public class AppointmentService {
     }
 
     public List<AppointmentResponseDTO> getAppointmentsByProfessionalAndDate(Long professionalId, LocalDate date) {
+        notNull(date);
         LocalDateTime startOfDay = date.atStartOfDay();
         LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
 
@@ -128,10 +147,16 @@ public class AppointmentService {
                 .toList();
     }
 
-    public List<AppointmentResponseDTO> getByProfessionalId(Long id) {
-        List<Appointment> appointments = repository.findByProfessionalId(id);
 
-        return appointments.stream().map(mapper::toDTO).toList();   
+    @Transactional
+    public void deleteById(Long id) {
+        Appointment appointment = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum agendamento encontrado com ID: " + id));
+
+        appointment.getService().setAppointment(null);
+        appointment.getProfessional().getAppointmentList().remove(appointment);
+
+        repository.delete(appointment);
     }
 
 

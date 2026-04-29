@@ -29,10 +29,6 @@ public class ProfessionalService {
     @Transactional
     public ProfessionalResponseDTO addProfessionalToEstablishment(Long establishmentId, ProfessionalRequestDTO dto) {
 
-        if (!dto.establishmentId().equals(establishmentId)) {
-            throw new ResourceNotFoundException("IDs incompatíveis");
-        }
-
         Establishment establishment = establishmentRepository.findById(establishmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Estabelecimento não encontrado"));
 
@@ -68,19 +64,16 @@ public class ProfessionalService {
     }
 
     public ProfessionalResponseDTO professionalDetails(Long establishmentId, Long professionalId) {
-        Establishment establishment = establishmentRepository.findById(establishmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Nenhum estabelecimento encontrado com este ID: " + establishmentId));
 
-        Professional professional = repository.findById(professionalId)
-                .orElseThrow(() -> new ResourceNotFoundException("Nenhum profissional encontrado com este ID: " + professionalId));
-
-        if (!establishment.getProfessionals().contains(professional)) {
-            throw new ResourceNotFoundException("O profissional não pertence ao estabelecimento informado. " +
-                    "Pertence ao estabelecimento de ID: " + professional.getEstablishment().getId());
-        }
+        Professional professional = (Professional) repository
+                .findByIdAndEstablishmentId(professionalId, establishmentId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Profissional não encontrado para este estabelecimento."
+                ));
 
         return mapper.toDTO(professional);
     }
+
 
     public ProfessionalResponseDTO updateProfessional(Long establishmentId, Long professionalId,
                                                       ProfessionalRequestDTO dto) {
@@ -134,6 +127,10 @@ public class ProfessionalService {
             throw new ServiceAlreadyExistsException("O profissional ja tem o serviço em questão.");
         }
 
+        if(service.getProfessional() != null){
+            throw new IllegalArgumentException("Serviço ja possui um profissional vinculado.");
+        }
+
         professional.getServiceList().add(service);
         service.setProfessional(professional);
 
@@ -150,17 +147,6 @@ public class ProfessionalService {
 
         if (dto.bio() != null) {
             professional.setBio(dto.bio());
-        }
-
-        if (dto.establishmentId() != null &&
-                !dto.establishmentId().equals(professional.getEstablishment().getId())) {
-
-            Establishment establishment = establishmentRepository.findById(dto.establishmentId())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "Nenhum estabelecimento encontrado com este ID: " + dto.establishmentId()
-                    ));
-
-            professional.setEstablishment(establishment);
         }
 
         return professional;

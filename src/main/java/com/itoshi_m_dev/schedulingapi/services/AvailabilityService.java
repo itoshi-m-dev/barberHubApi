@@ -5,7 +5,6 @@ import com.itoshi_m_dev.schedulingapi.DTO.AvailabilityDTOS.AvailabilityResponseD
 import com.itoshi_m_dev.schedulingapi.exception.ClosedBarberException;
 import com.itoshi_m_dev.schedulingapi.exception.ResourceNotFoundException;
 import com.itoshi_m_dev.schedulingapi.mapper.AvailabilityMapper;
-import com.itoshi_m_dev.schedulingapi.model.Appointment;
 import com.itoshi_m_dev.schedulingapi.model.Availability;
 import com.itoshi_m_dev.schedulingapi.model.Professional;
 import com.itoshi_m_dev.schedulingapi.repositories.AvailabilityRepository;
@@ -31,13 +30,6 @@ public class AvailabilityService {
 
     @Transactional
     public AvailabilityResponseDTO addAvailabilityToProfessional(Long professionalId, AvailabilityRequestDTO dto){
-        if (!professionalRepository.existsById(professionalId)){
-            throw new ResourceNotFoundException("Nenhum profissional encontrado com este ID: " + professionalId);
-        }
-
-        if (!dto.professionalId().equals(professionalId)){
-            throw new ResourceNotFoundException("O Id de criação é diferente do Path.");
-        }
 
         Professional professional = professionalRepository.findById(professionalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum profissional encontrado com este ID" + professionalId));
@@ -121,11 +113,6 @@ public class AvailabilityService {
 
 
         private Availability update(Availability availability, AvailabilityRequestDTO dto) {
-        if(dto.professionalId() != null && !dto.professionalId().equals(availability.getProfessional().getId())){
-           Professional professional = professionalRepository.findById(dto.professionalId())
-                   .orElseThrow(() -> new ResourceNotFoundException("Nenhum profissional encontrado com este ID: " + dto.professionalId()));
-           availability.setProfessional(professional);
-        }
         if(dto.dayOfWeek() != null){
             availability.setDayOfWeek(dto.dayOfWeek());
         }

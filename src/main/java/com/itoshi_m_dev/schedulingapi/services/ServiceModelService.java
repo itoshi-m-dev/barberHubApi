@@ -159,6 +159,10 @@ public class ServiceModelService {
             throw new ResourceNotFoundException("O serviço nao pertence ao estabelecimento informado");
         }
 
+        if(entity.getProfessional() != null){
+            throw new ServiceAlreadyExistsException("Ja existe um profissional vinculado a este serviço");
+        }
+
         Professional professional = professionalRepository.findById(professionalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum profissional foi encontrado com ID: " + professionalId));
 

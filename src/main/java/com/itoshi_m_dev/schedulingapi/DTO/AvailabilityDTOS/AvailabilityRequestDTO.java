@@ -8,10 +8,6 @@ import java.time.LocalTime;
 
 public record AvailabilityRequestDTO(
 
-        @NotNull(message = "Profissional é obrigatório")
-        @Positive(message = "ID do profissional deve ser positivo")
-        Long professionalId,
-
         @NotNull(message = "Dia da semana é obrigatório")
         DayOfWeek dayOfWeek,
 

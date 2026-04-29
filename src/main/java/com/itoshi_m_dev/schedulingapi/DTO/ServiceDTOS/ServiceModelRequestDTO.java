@@ -21,12 +21,7 @@ public record ServiceModelRequestDTO(
 
     @NotNull(message = "Duração é obrigatória")
     @Min(value = 1, message = "Duração deve ser de no mínimo 1 minuto")
-    Integer durationMinutes,
-
-    @NotNull(message = "Estabelecimento é obrigatório")
-    Long establishmentId
-
-
+    Integer durationMinutes
 
 ) {
 }

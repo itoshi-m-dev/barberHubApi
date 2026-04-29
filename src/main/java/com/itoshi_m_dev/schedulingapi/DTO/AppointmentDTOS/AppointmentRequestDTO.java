@@ -1,5 +1,6 @@
 package com.itoshi_m_dev.schedulingapi.DTO.AppointmentDTOS;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.itoshi_m_dev.schedulingapi.enums.AppointmentStatus;
 import jakarta.validation.constraints.*;
 
@@ -17,15 +18,8 @@ public record AppointmentRequestDTO(
 
         @NotNull(message = "Data e horário são obrigatórios")
         @FutureOrPresent(message = "Agendamento deve ser no presente ou futuro")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime scheduledAt,
-
-        @NotNull(message = "Duração é obrigatória")
-        @Min(value = 1, message = "Duração deve ser no mínimo 1 minuto")
-        Integer durationMinutes,
-
-        @NotNull(message = "Preço é obrigatório")
-        @DecimalMin(value = "0.0", inclusive = false, message = "Preço deve ser maior que zero")
-        BigDecimal price,
 
         @NotNull(message = "Status é obrigatório")
         AppointmentStatus status,
@@ -35,6 +29,7 @@ public record AppointmentRequestDTO(
 
         @PastOrPresent(message = "A data de criação deve ser presente ou passada")
         @NotNull(message = "Data e horario de criação sao obrigatorias")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 
 

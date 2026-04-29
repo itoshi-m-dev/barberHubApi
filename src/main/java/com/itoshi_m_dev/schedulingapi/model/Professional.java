@@ -25,13 +25,13 @@ public class Professional {
     @JoinColumn(name = "establishment_id")
     private Establishment establishment;
 
-    @OneToMany(mappedBy = "professional")
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServiceModel> serviceList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Availability> availabilityList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "professional")
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointmentList = new ArrayList<>();
 
 

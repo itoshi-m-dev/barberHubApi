@@ -35,7 +35,7 @@ public class ServiceModel {
 
     private boolean isActive = true;
 
-    @OneToOne(mappedBy = "service")
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
     private Appointment appointment;
 
 }

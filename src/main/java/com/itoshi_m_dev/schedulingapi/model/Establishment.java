@@ -29,10 +29,10 @@ public class Establishment {
 
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Professional> professionals = new ArrayList<>();
 
-    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServiceModel> services = new ArrayList<>();
 
 

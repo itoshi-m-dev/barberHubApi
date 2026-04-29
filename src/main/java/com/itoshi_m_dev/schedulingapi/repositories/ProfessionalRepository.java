@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProfessionalRepository extends JpaRepository<Professional, Long> {
 
@@ -14,5 +15,5 @@ public interface ProfessionalRepository extends JpaRepository<Professional, Long
     Page<Professional> findByEstablishmentId(Long establishmentId, Pageable pageable);
 
 
-
+    Optional<Object> findByIdAndEstablishmentId(Long professionalId, Long establishmentId);
 }

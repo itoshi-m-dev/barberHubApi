@@ -11,10 +11,7 @@ public record ProfessionalRequestDTO(
         String name,
 
         @Size(max = 255, message = "Bio deve ter no máximo 255 caracteres.")
-        String bio,
-
-        @NotNull(message = "Profissional deve ter um estabelecimento")
-        Long establishmentId
+        String bio
 
 ) {
 }
