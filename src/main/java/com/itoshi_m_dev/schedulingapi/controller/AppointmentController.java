@@ -27,7 +27,6 @@ public class AppointmentController {
 
     private final AppointmentService service;
 
-
     @PostMapping
     @Operation(
             summary = "Criar agendamento",
