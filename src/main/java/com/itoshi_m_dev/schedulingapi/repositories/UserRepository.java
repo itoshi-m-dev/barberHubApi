@@ -1,11 +1,13 @@
 package com.itoshi_m_dev.schedulingapi.repositories;
 
-import com.itoshi_m_dev.schedulingapi.model.User;
+import com.itoshi_m_dev.schedulingapi.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
 
-    User findByName(String name);
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-    User findByEmail(String email);
+    Optional<Users> findByEmail(String email);
+
+    Optional<Users> findByLogin(String login);
 }

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Barbearia Vintage</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+                    url('https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            padding: 20px;
+        }
+
+        .login-container{
+            width: 100%;
+            max-width: 430px;
+            background: rgba(17,17,17,0.92);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 35px rgba(0,0,0,0.6);
+        }
+
+        .logo{
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo h1{
+            font-family: Arial, sans-serif;
+            font-size: 2.2rem;
+            color: #d4af37;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .logo p{
+            color: #bdbdbd;
+            font-size: 0.95rem;
+        }
+
+        .input-group{
+            margin-bottom: 22px;
+        }
+
+        .input-group label{
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #d4af37;
+            font-weight: 500;
+        }
+
+        .input-group input{
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            background: #1c1c1c;
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus{
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212,175,55,0.4);
+        }
+
+        .btn-login{
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: black;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover{
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .divider{
+            margin: 25px 0;
+            text-align: center;
+            color: #999;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #333;
+        }
+
+        .divider::before{
+            left: 0;
+        }
+
+        .divider::after{
+            right: 0;
+        }
+
+        .google-btn{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            background: #fff;
+            color: #111;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .google-btn:hover{
+            transform: translateY(-2px);
+        }
+
+        .footer{
+            margin-top: 25px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .footer a{
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .error-message{
+            background: rgba(255,0,0,0.15);
+            border: 1px solid rgba(255,0,0,0.4);
+            color: #ff8a8a;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-message{
+            background: rgba(0,255,0,0.12);
+            border: 1px solid rgba(0,255,0,0.3);
+            color: #8dff8d;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @media(max-width: 500px){
+
+            .login-container{
+                padding: 30px 25px;
+            }
+
+            .logo h1{
+                font-size: 1.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        <h1>BARBEARIA VINTAGE</h1>
+        <p>Estilo clássico para homens modernos</p>
+    </div>
+
+    <div th:if="${param.error}" class="error-message">
+        Usuário ou senha inválidos.
+    </div>
+
+    <div th:if="${param.logout}" class="success-message">
+        Logout realizado com sucesso.
+    </div>
+
+    <form th:action="@{/login}" method="post">
+
+        <div class="input-group">
+            <label>Login</label>
+            <input type="text"
+                   name="username"
+                   placeholder="Digite seu login"
+                   required>
+        </div>
+
+        <div class="input-group">
+            <label>Senha</label>
+            <input type="password"
+                   name="password"
+                   placeholder="Digite sua senha"
+                   required>
+        </div>
+
+        <button type="submit" class="btn-login">
+            Entrar
+        </button>
+
+    </form>
+
+    <div class="divider">OU</div>
+
+    <a href="/oauth2/authorization/google" class="google-btn">
+        <span>🔐</span>
+        Entrar com Google
+    </a>
+
+    <div class="footer">
+        Não possui conta?
+        <a th:href="@{/register}">Criar conta</a>
+    </div>
+
+</div>
+
+</body>
+</html>

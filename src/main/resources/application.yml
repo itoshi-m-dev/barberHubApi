@@ -2,10 +2,10 @@ spring:
   application:
     name: scheduling-api
 
-  data-source:
+  datasource:
     url: jdbc:postgresql://localhost:5432/scheduling
-    username: postgres
-    password: postgres
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -20,4 +20,15 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
 

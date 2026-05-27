@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -39,6 +40,7 @@ public class AvailabilityController {
             @ApiResponse(responseCode = "409", description = "Conflito de horário"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN', 'PROFESSIONAL')")
     public ResponseEntity<AvailabilityResponseDTO> addAvailabilityToProfessional(@PathVariable Long professionalId,
                                                                                  @RequestBody @Valid AvailabilityRequestDTO dto) {
         AvailabilityResponseDTO show = service.addAvailabilityToProfessional(professionalId, dto);
@@ -62,6 +64,7 @@ public class AvailabilityController {
             @ApiResponse(responseCode = "404", description = "Profissional não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<AvailabilityResponseDTO>> findByProfessionalId(@PathVariable Long professionalId) {
         List<AvailabilityResponseDTO> show = service.findByProfessionalId(professionalId);
 
@@ -80,6 +83,7 @@ public class AvailabilityController {
             @ApiResponse(responseCode = "409", description = "Conflito de horário"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN', 'PROFESSIONAL')")
     public ResponseEntity<AvailabilityResponseDTO> update(@PathVariable Long professionalId,
                                                           @PathVariable Long availabilityId,
                                                           @RequestBody @Valid AvailabilityRequestDTO dto) {
@@ -101,6 +105,7 @@ public class AvailabilityController {
             @ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN', 'PROFESSIONAL')")
     public ResponseEntity<Void> delete(@PathVariable Long professionalId, @PathVariable Long availabilityId) {
         service.deleteAvailability(professionalId, availabilityId);
         return ResponseEntity.noContent().build();
@@ -117,6 +122,7 @@ public class AvailabilityController {
             @ApiResponse(responseCode = "404", description = "Profissional não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<AvailabilityResponseDTO>> getByProfessionalAndDayOfWeek(
             @PathVariable Long professionalId,
 

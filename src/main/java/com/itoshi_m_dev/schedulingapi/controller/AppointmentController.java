@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -39,6 +40,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "409", description = "Conflito de horário"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<AppointmentResponseDTO> createAppointment(@RequestBody AppointmentRequestDTO dto) {
         AppointmentResponseDTO show = service.create(dto);
         URI uri = ServletUriComponentsBuilder
@@ -61,6 +63,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "400", description = "ID inválido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN', 'PROFESSIONAL')")
     public ResponseEntity<AppointmentResponseDTO> getAppointmentById(@PathVariable Long id) {
         AppointmentResponseDTO show = service.detailAppointment(id);
         return ResponseEntity.ok().body(show);
@@ -78,6 +81,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "409", description = "Agendamento não pode ser cancelado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('CLIENT', 'PROFESSIONAL')")
     public ResponseEntity<Void> cancelAppointment(@PathVariable Long id) {
         service.cancelAppointment(id);
         return ResponseEntity.noContent().build();
@@ -95,6 +99,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "409", description = "Agendamento não pode ser confirmado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasRole('PROFESSIONAL')")
     public ResponseEntity<Void> confirmAppointment(@PathVariable Long id) {
         service.confirmAppointment(id);
         return ResponseEntity.noContent().build();
@@ -112,6 +117,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "409", description = "Agendamento não pode ser finalizado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasRole('PROFESSIONAL')")
     public ResponseEntity<Void> completeAppointment(@PathVariable Long id) {
         service.completeAppointment(id);
         return ResponseEntity.noContent().build();
@@ -128,6 +134,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "404", description = "Profissional não encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN', 'PROFESSIONAL')")
     public ResponseEntity<List<AppointmentResponseDTO>> getAppointmentsByProfessionalAndDate(
             @PathVariable Long id,
             @Parameter(
@@ -152,6 +159,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "400", description = "Parâmetro inválido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN', 'PROFESSIONAL')")
     public ResponseEntity<List<AppointmentResponseDTO>> findAll(
             @Parameter(
                     description = "Status do agendamento (PENDING, CONFIRMED, CANCELLED, COMPLETED)",
@@ -174,6 +182,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "409", description = "Agendamento não pode ser removido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
 
         service.deleteById(id);

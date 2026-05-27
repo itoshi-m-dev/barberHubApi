@@ -7,7 +7,7 @@ public record UserResponseDTO(
 
         Long id,
 
-        String name,
+        String login,
 
         String email,
 

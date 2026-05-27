@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,6 +38,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "422", description = "Erro de validação"),
             @ApiResponse(responseCode = "409", description = "Serviço ja cadastrado"),
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<ServiceModelResponseDTO> createServiceInEstablishmentById(
             @PathVariable Long id,
             @RequestBody @Valid ServiceModelRequestDTO dto) {
@@ -60,6 +62,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "400", description = "ID do estabelecimento inválido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<ServiceModelResponseDTO>> listAllServicesInEstablishment(
             @PathVariable Long establishmentId) {
 
@@ -77,6 +80,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "400", description = "ID invalido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ServiceModelResponseDTO> findById(@PathVariable Long id) {
         ServiceModelResponseDTO show = service.findById(id);
 
@@ -93,6 +97,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "400", description = "Dados invalidos para atualização"),
 
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<ServiceModelResponseDTO> updateServiceByEstablishment(
             @PathVariable Long establishmentId, @PathVariable Long serviceId, @RequestBody ServiceModelRequestDTO dto) {
 
@@ -112,6 +117,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "400", description = "ID's Invalidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<Void> deleteServiceByEstablishmentId(@PathVariable Long establishmentId,
                                                                @PathVariable Long serviceId) {
 
@@ -130,6 +136,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "400", description = "Parâmetros com filtros inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<Page<ServiceModelResponseDTO>> findAll(
             @Parameter(description = "Nome do serviço para filtro", example = "Corte")
             @RequestParam(value = "name", required = false) String name,
@@ -164,6 +171,7 @@ public class ServiceModelController {
             @ApiResponse(responseCode = "409", description = "Serviço ja possui um profissional vinculado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<ServiceModelResponseDTO> addProfessionalToService(@PathVariable Long establishmentId,
                                                                             @PathVariable Long serviceId,
                                                                             @PathVariable Long professionalId) {

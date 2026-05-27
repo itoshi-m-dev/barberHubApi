@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,6 +36,7 @@ public class EstablishmentController {
             @ApiResponse(responseCode = "400", description = "Dados invalidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<EstablishmentResponseDTO> create(@RequestBody @Valid EstablishmentRequestDTO dto){
         EstablishmentResponseDTO show = service.create(dto);
         URI uri = ServletUriComponentsBuilder
@@ -54,6 +56,7 @@ public class EstablishmentController {
             @ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<Page<EstablishmentResponseDTO>> findAll(
 
             @Parameter(description = "Nome do estabelecimento para filtro", example = "Barbearia Shelby")
@@ -80,6 +83,7 @@ public class EstablishmentController {
             @ApiResponse(responseCode = "404", description = "Estabelecimento nao encontrado"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<EstablishmentResponseDTO> findById(@PathVariable Long id){
         EstablishmentResponseDTO show = service.findById(id);
         return ResponseEntity.ok().body(show);
@@ -97,6 +101,7 @@ public class EstablishmentController {
             @ApiResponse(responseCode = "409", description = "Conflito de dados"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasRole('OWNER')")
     public ResponseEntity<EstablishmentResponseDTO> updateById(
              @PathVariable Long id,
              @RequestBody @Valid EstablishmentRequestDTO dto){
@@ -116,6 +121,7 @@ public class EstablishmentController {
             @ApiResponse(responseCode = "400", description = "ID inválido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN')")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         service.deleteById(id);
         return ResponseEntity.noContent().build();

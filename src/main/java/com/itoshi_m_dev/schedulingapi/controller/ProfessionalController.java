@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,6 +41,7 @@ public class ProfessionalController {
             @ApiResponse(responseCode = "409", description = "Profissional ja existe no estabelecimento"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN)")
     public ResponseEntity<ProfessionalResponseDTO> addProfessionalInEstablishment(@PathVariable Long establishmentId,
                                                                                   @RequestBody @Valid ProfessionalRequestDTO dto) {
         ProfessionalResponseDTO show = service.addProfessionalToEstablishment(establishmentId, dto);
@@ -61,6 +63,7 @@ public class ProfessionalController {
             @ApiResponse(responseCode = "400", description = "ID inválido"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<Page<ProfessionalResponseDTO>> findAllProfessionalByEstablishment(@PathVariable Long establishmentId,
                                                                                             @Parameter(hidden = true)
                                                                                             Pageable pageable) {
@@ -81,6 +84,7 @@ public class ProfessionalController {
             @ApiResponse(responseCode = "404", description = "Estabelecimento ou profissional não encontrado, ou não pertence ao estabelecimento"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ProfessionalResponseDTO> professionalDetailByEstablishment(@PathVariable Long establishmentId,
                                                                                      @PathVariable Long professionalId) {
 
@@ -98,6 +102,7 @@ public class ProfessionalController {
             @ApiResponse(responseCode = "409", description = "Conflito de dados ao atualizar profissional"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN)")
     public ResponseEntity<ProfessionalResponseDTO> updateProfessional(@PathVariable Long establishmentId,
                                                                       @PathVariable Long professionalId,
                                                                       @RequestBody @Valid ProfessionalRequestDTO dto) {
@@ -118,6 +123,7 @@ public class ProfessionalController {
             @ApiResponse(responseCode = "404", description = "Estabelecimento ou profissional não encontrado, ou não pertence ao estabelecimento"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN)")
     public ResponseEntity<Void> deleteProfessional(@PathVariable Long establishmentId,
                                                    @PathVariable Long professionalId) {
 
@@ -139,6 +145,7 @@ public class ProfessionalController {
             @ApiResponse(responseCode = "409", description = "Serviço ja possui um profissional"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
+    @PreAuthorize("hasAnyRole('OWNER', 'ADMIN)")
     public ResponseEntity<Void> addServiceToProfessional(@PathVariable Long serviceId,
                                                          @PathVariable Long professionalId) {
 

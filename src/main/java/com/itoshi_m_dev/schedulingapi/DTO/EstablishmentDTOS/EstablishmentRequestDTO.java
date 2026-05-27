@@ -1,5 +1,6 @@
 package com.itoshi_m_dev.schedulingapi.DTO.EstablishmentDTOS;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -27,6 +28,7 @@ public record EstablishmentRequestDTO(
 
         @NotNull
         @PastOrPresent(message = "Estabelecimento nao pode ser criado em uma data futura.")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 
 ) {
