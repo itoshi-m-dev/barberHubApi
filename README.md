@@ -97,15 +97,18 @@ src/
 └── main/
     ├── java/
     │   └── com/itoshi_m_dev/schedulingapi/
-    │       ├── auth/           # Configuração OAuth2, JWT, SecurityFilterChain
-    │       ├── user/           # Módulo de usuários
-    │       ├── establishment/  # Módulo de estabelecimentos
-    │       ├── service/        # Módulo de serviços
-    │       ├── professional/   # Módulo de profissionais
-    │       ├── availability/   # Módulo de disponibilidade
-    │       ├── appointment/    # Módulo de agendamentos
-    │       ├── review/         # Módulo de avaliações
-    │       └── shared/         # Exception handler, DTOs genéricos, config global
+    │       ├── config/           # Configuração OAuth2, JWT, SecurityFilterChain
+    │       ├── controller/          
+    │       ├── DTO/  
+    │       ├── enums/        
+    │       ├── exception/   
+    │       ├── mapper/   
+    │       ├── model/    
+    │       ├── repositories/
+    │        ├── security/
+    │       ├── services/
+    │       ├── specification/
+    │       ├── validators/
     └── resources/
         ├── application.properties
         └── templates/          # Templates Thymeleaf (OAuth2 consent page)
